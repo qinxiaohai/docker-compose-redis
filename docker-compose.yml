@@ -26,20 +26,3 @@ slave2:
     - affinity:service!=slave2
   container_name: slave2
 
-
-  labels: 
-    scale: "3"
-  restart: always
-  links:
-    - master:redis-master
-sentinel:
-  image: registry.aliyuncs.com/acs-sample/redis-sentinel
-  environment:
-    - affinity:service!=sentinel
-  labels: 
-    scale: "4"
-  restart: always
-  links:
-    - master:redis-master
-    - slave1
-    - slave2
