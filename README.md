@@ -7,36 +7,6 @@ yum -y install python-pip
 2、安装docker-compose
 pip install docker-compose && docker-compose version
 
-3，创建
-vim docker-compose.yaml
-
-master:
-  image: redis
-  environment:
-    - affinity:service!=slave1
-    - affinity:service!=slave2
-  restart: always
-  container_name: master
-  
-slave1:
-  links:
-    - master:redis-master
-  image: redis
-  command: redis-server --slaveof redis-master 6379
-  environment:
-    - affinity:service!=master
-    - affinity:service!=slave1
-  container_name: slave1
-  
-slave2:
-  image: redis
-  links:
-    - master:redis-master
-  command: redis-server --slaveof redis-master 6379
-  environment:
-    - affinity:service!=master
-    - affinity:service!=slave2
-  container_name: slave2
   
 
 运行编码
